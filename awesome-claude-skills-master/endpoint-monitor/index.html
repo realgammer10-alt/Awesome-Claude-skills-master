@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f4f3ef">
+    <title>Endpoint Monitor</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="wordmark" href="/" aria-label="Endpoint Monitor home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>fieldnotes<span class="wordmark-light"> / monitor</span></span>
+      </a>
+      <div class="connection-state" id="connection-state" role="status">
+        <span class="connection-dot"></span><span id="connection-label">Connecting</span>
+      </div>
+    </header>
+    <main class="workspace">
+      <section class="page-heading">
+        <div>
+          <p class="eyebrow">OPERATIONS / ENDPOINTS</p>
+          <h1>Service health</h1>
+          <p class="subheading">A clear read on what is responding, and what is not.</p>
+        </div>
+        <p class="updated-label">Refreshes every 5 seconds</p>
+      </section>
+      <section class="summary" aria-label="Monitor summary" aria-live="polite">
+        <div class="summary-cell"><span class="summary-label">MONITORED</span><strong id="total-count">—</strong></div>
+        <div class="summary-cell"><span class="summary-label">OPERATIONAL</span><strong id="up-count" class="tone-up">—</strong></div>
+        <div class="summary-cell"><span class="summary-label">FAILING</span><strong id="down-count" class="tone-down">—</strong></div>
+        <div class="summary-cell"><span class="summary-label">UNKNOWN</span><strong id="unknown-count">—</strong></div>
+      </section>
+      <div class="notice" id="notice" role="alert" hidden></div>
+      <div class="content-grid">
+        <section class="monitor-section" aria-labelledby="monitor-heading">
+          <div class="section-heading">
+            <div><p class="eyebrow">LIVE INVENTORY</p><h2 id="monitor-heading">Your endpoints</h2></div>
+            <button class="quiet-button" id="refresh-button" type="button">Refresh now</button>
+          </div>
+          <div class="monitor-list" id="monitor-list" aria-live="polite" aria-busy="true">
+            <div class="loading-state">Loading endpoint status</div>
+          </div>
+        </section>
+        <aside class="add-panel" aria-labelledby="add-heading">
+          <p class="eyebrow">NEW CHECK</p><h2 id="add-heading">Add an endpoint</h2>
+          <form id="add-form">
+            <label for="monitor-name">Display name</label>
+            <input id="monitor-name" name="name" type="text" placeholder="Public API" minlength="1" maxlength="80" required>
+            <label for="monitor-url">Health URL</label>
+            <input id="monitor-url" name="url" type="url" placeholder="https://api.example.com/health" maxlength="2048" required>
+            <p class="field-hint">HTTP or HTTPS endpoints only.</p>
+            <label for="monitor-interval">Check interval</label>
+            <div class="interval-control"><input id="monitor-interval" name="interval_seconds" type="number" min="5" max="3600" step="5" value="60" required><span>seconds</span></div>
+            <button class="primary-button" type="submit">Add monitor <span aria-hidden="true">+</span></button>
+            <p class="form-hint">Checks time out after 5 seconds. Up to 100 endpoints.</p>
+          </form>
+        </aside>
+      </div>
+      <footer class="page-footer">Checks run from this machine. Monitor data is stored locally.</footer>
+    </main>
+  </body>
+</html>
